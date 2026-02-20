@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <h1 id="weather">Weather Api</h1>
+    <form onsubmit="getweather(); return false;">
+<label for="cityname">City Name</label>
+<input type="text" Name ="cityname" id="idtemp1">
+<button>submit</button>
+    </form>
+
+<script>
+function getweather() {
+let cityname=document.getElementById("idtemp1").value;
+//alert(`fetching weather for ${cityname}...`);
+// fetch api data
+
+axios.get(`https://api.weatherapi.com/v1/current.json?key=af11c1a8960a43bb81e122042250710&q=${cityname}&aqi=yes`)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    console.log(response.data);
+    console.log(response.data.current);
+    console.log(response.data.current.temp_c);
+    // document.writein(`<h2> weather in ${cityname}</h2>`);
+   //  document.writein(`<p> Temperature: ${response.data.current.temp_c} c</p>`);
+   document.getElementById('weather').innerHTML = `<h2> weather in ${cityname}</h2>
+   <p>Temperature: ${response.data.current.temp_c} c</p>  Today pressure is ${response.data.current.
+   pressure_in }`
+
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+}
+
+</script>
+
+
+</body>
+</html>
